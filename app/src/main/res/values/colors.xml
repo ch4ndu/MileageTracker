@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3669B3</color>
+    <color name="colorPrimaryDark">#3669B3</color>
+    <color name="backgroundColor">#ffffff</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="colorAccent">#5e87c2</color>
+    <color name="greenColor">#19b574</color>
+    <color name="stopColor">#ef4348</color>
+    <color name="primary_text_color">#333333</color>
+    <color name="secondary_text_color">#757575</color>
+    <color name="disable_color">#e5e5e5</color>
+    <!--    <color name="primary_light">#B3E5FC</color>-->
+    <color name="white">#ffffff</color>
+
+    <color name="play_tint">#228DDD</color>
+    <color name="play_text_tint">#0200A4</color>
+
+    <color name="divider_color">@android:color/darker_gray</color>
+    <color name="gray_color">#B3B3B3</color>
+    <color name="light_gray_color">#E6E6E6</color>
+    <color name="mid_gray_color">#CCCCCC</color>
+    <color name="text_gray_color">#666666</color>
+    <color name="textColorAccented">#112942</color>
+    <!--<color name="divider_color">@color/white</color>-->
+
+    <!--<color name="gplus_color_1">#BF3e802f</color>-->
+    <!--<color name="gplus_color_2">#BFf4b400</color>-->
+    <!--<color name="gplus_color_3">#BF427fed</color>-->
+    <color name="gplus_color_4">#BFb23424</color>
+
+    <color name="gplus_color_1">@color/colorAccent</color>
+    <color name="gplus_color_2">@color/colorPrimary</color>
+    <color name="gplus_color_3">@color/colorPrimaryDark</color>
+    <!--<color name="gplus_color_4">@color/white</color>-->
+
+    <integer-array name="gplus_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/white</item>
+        <item>@android:color/holo_orange_light</item>
+        <item>@color/gplus_color_3</item>
+    </integer-array>
+    <color name="notificationColor">#22c384</color>
+</resources>

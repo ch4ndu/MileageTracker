@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_xxlarge">26sp</dimen>
+    <dimen name="text_xlarge">22sp</dimen>
+    <dimen name="text_large">18sp</dimen>
+    <dimen name="text_standard">16sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_xsmall">12sp</dimen>
+    <dimen name="overview_item_padding_side">5dp</dimen>
+    <dimen name="overview_item_padding_vertical">5dp</dimen>
+
+
+    <dimen name="income_width">150sp</dimen>
+    <dimen name="income_gen_width">110sp</dimen>
+    <dimen name="income_aff_width">90sp</dimen>
+    <dimen name="income_total_width">90sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="nav_bar_image_size">32dp</dimen>
+
+</resources>

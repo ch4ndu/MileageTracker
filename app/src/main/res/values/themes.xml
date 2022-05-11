@@ -1,0 +1,179 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:titleTextAppearance">@style/TitleText</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="background">@color/colorPrimaryDark</item>
+        <item name="toolbarNavigationButtonStyle">@style/ToolbarNavigationButtonStyle</item>
+    </style>
+
+    <style name="ToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <!--used in toolbars...don't remove-->
+    <style name="TitleText" parent="android:style/Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+        <!--<item name="android:textColor">@android:color/black</item>-->
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+        <item name="colorControlNormal">#757575</item>
+        <item name="android:textColorPrimary">@color/primary_text_color</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+        <item name="android:divider">#BDBDBD</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+
+        <item name="md_color_title">@android:color/black</item>
+        <item name="md_color_content">@android:color/black</item>
+        <item name="md_color_button_text">@color/colorPrimary</item>
+        <item name="md_background_color">@color/backgroundColor</item>
+        <item name="md_ripple_color">@color/colorAccent</item>
+        <item name="md_corner_radius">16dp</item>
+
+<!--        <item name="spbStyle">@style/GNowProgressBar</item>-->
+
+        <!-- Original AppCompat attributes. -->
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorError">@android:color/holo_red_dark</item>
+
+        <!-- New MaterialComponents attributes. -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/colorPrimary</item>
+
+
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
+        <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnBackground">@color/primary_text_color</item>
+        <item name="colorOnError">@color/white</item>
+        <!--<item name="scrimBackground">@color/mtrl_scrim_color</item>-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1
+        </item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2
+        </item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3
+        </item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4
+        </item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5
+        </item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6
+        </item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1
+        </item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2
+        </item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+
+        <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
+        <item name="android:contextPopupMenuStyle" tools:targetApi="n">
+            @style/Widget.MaterialComponents.PopupMenu.ContextMenu
+        </item>
+        <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow
+        </item>
+    </style>
+
+    <style name="WindowAnimationTransition" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <!--<item name="android:activityCloseEnterAnimation">@null</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@null</item>-->
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+        <!--        <item name="android:windowEnterAnimation">@anim/bottom_top</item>-->
+        <!--        <item name="android:windowExitAnimation">@anim/right_to_left</item>-->
+    </style>
+
+    <style name="TabTheme" parent="Widget.MaterialComponents.TabLayout.Colored">
+        <!--        <item name="android:background">@color/tab_selector</item>-->
+        <item name="tabBackground">@drawable/tab_selector</item>
+        <item name="tabIconTint">@android:color/transparent</item>
+        <item name="tabIndicatorColor">@color/greenColor</item>
+        <item name="tabTextColor">@color/text_gray_color</item>
+        <item name="tabRippleColor">@color/greenColor</item>
+        <item name="tabTextAppearance">@style/TabText</item>
+    </style>
+
+    <style name="TabText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">42dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">88dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:background">@drawable/default_button_selector</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/text_sel</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:colorButtonNormal">?attr/colorAccent</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.MinWidth">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorControlHighlight">?attr/colorAccent</item>
+    <item name="colorControlNormal">@color/white</item>
+    <item name="android:textColorPrimary">@color/primary_text_color</item>
+    <item name="android:textColorSecondary">@color/secondary_text_color</item>
+    <item name="android:divider">#BDBDBD</item>
+    <!--        <item name="android:windowBackground">@color/card_background</item>-->
+</style>
+
+
+    <style name="ButtonStyle_Test" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:background">@color/greenColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_standard</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+</resources>

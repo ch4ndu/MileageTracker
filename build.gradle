@@ -1,0 +1,33 @@
+buildscript {
+    ext.kotlin_version = '1.6.20'
+    ext.support_version = '27.1.1'
+    ext.play_services_version = '18.0.2'
+    ext.location_services_version = '19.0.1'
+    ext.recyclerview_version = '1.2.1'
+    ext.material_version = '1.6.0-beta01'
+    ext.appcompat_version = '1.2.0'
+    ext.cardview_version = '1.0.0'
+    ext.multidex_version = '2.0.1'
+    ext.work_version = '2.7.1'
+
+//    repositories {
+//        google()
+//        jcenter()
+//    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.10'
+    }
+}
+
+plugins {
+    id 'com.android.application' version '7.1.2' apply false
+    id 'com.android.library' version '7.1.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.20' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

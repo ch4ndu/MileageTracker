@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/dashboard_new"
+        android:title="Dashboard"
+        tools:ignore="AlwaysShowAction,HardcodedText" />
+    <item
+        android:id="@+id/track_miles"
+        android:icon="@drawable/dashboard_miles"
+        android:title="Miles"
+        tools:ignore="AlwaysShowAction,HardcodedText" />
+    <item
+        android:id="@+id/more_options"
+        android:icon="@drawable/dashboard_more"
+        android:title="More"
+        tools:ignore="AlwaysShowAction,HardcodedText" />
+</menu>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText,RtlHardcoded">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="5dp"
+        android:theme="@style/ToolbarStyle"
+        app:navigationIcon="@drawable/ic_launcher_foreground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mileage Tracker"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        style="@style/TabTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabIndicatorHeight="4dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Map" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_offline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Automated Miles" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/tracking_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/deduction_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trip Deduction"
+                    android:textColor="@color/textColorAccented"
+                    android:textSize="@dimen/text_large" />
+
+                <TextView
+                    android:id="@+id/miles_deduction_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="$0.00"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_large"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/miles_duration_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Time: 00:00"
+                android:textColor="@color/textColorAccented"
+                android:textSize="@dimen/text_standard" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ticker_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deduction_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            android:elevation="8dp"
+            android:paddingTop="30dp"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:id="@+id/distance_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/distance_travelled_hundred_thousand"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray_color"
+                    android:gravity="center"
+                    android:minHeight="56dp"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:ticker_defaultCharacterList="number" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/distance_travelled_ten_thousand"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray_color"
+                    android:gravity="center"
+                    android:minHeight="56dp"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:ticker_defaultCharacterList="number" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/distance_travelled_thousand"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray_color"
+                    android:gravity="center"
+                    android:minHeight="56dp"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:ticker_defaultCharacterList="number" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/distance_travelled_hundred"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray_color"
+                    android:gravity="center"
+                    android:minHeight="56dp"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:ticker_defaultCharacterList="number" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/distance_travelled_tenth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray_color"
+                    android:gravity="center"
+                    android:minHeight="56dp"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:ticker_defaultCharacterList="number" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/distance_travelled_single"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray_color"
+                    android:gravity="center"
+                    android:minHeight="56dp"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:ticker_defaultCharacterList="number" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="2dp"
+                    android:text="."
+                    android:textColor="@color/light_gray_color"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/distance_travelled_decimal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray_color"
+                    android:gravity="center"
+                    android:minHeight="56dp"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    app:ticker_defaultCharacterList="number" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/map_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:elevation="3dp"
+            android:paddingTop="10dp"
+            app:cardCornerRadius="5dp">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </androidx.cardview.widget.CardView>
+
+        <FrameLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/start_tracking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/greenColor"
+                    android:letterSpacing="0.04"
+                    android:minHeight="56dp"
+                    android:text="Start tracking"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_xlarge"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/stop_tracking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/stopColor"
+                    android:letterSpacing="0.04"
+                    android:minHeight="56dp"
+                    android:text="Stop tracking"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_xlarge"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/save_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/save_expense"
+                    style="@style/ButtonStyle"
+                    android:layout_marginRight="30dp"
+                    android:text="Save" />
+
+
+                <Button
+                    android:id="@+id/discard_expense"
+                    style="@style/ButtonStyle"
+                    android:text="Clear" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/offline_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_weight="1"/>
+</LinearLayout>

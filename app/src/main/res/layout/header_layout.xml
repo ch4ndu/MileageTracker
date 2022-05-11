@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_margin="5dp"
+    android:background="?attr/selectableItemBackground"
+    tools:targetApi="lollipop">
+
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0.05"
+        android:maxLines="4"
+        android:padding="20dp"
+        android:textColor="@color/textColorAccented"
+        android:textSize="@dimen/text_standard"
+        android:textStyle="bold" />
+</androidx.cardview.widget.CardView>

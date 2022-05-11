@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Mileage Tracker</string>
+    <string name="auto_track_explanation">To track all the miles you have driven without draining battery, My Loxley needs a few permissions.\nWith those permissions, My Loxley app can automatically detect when you are driving and track your trips so that you can use them for your year-end tax deductions. Enable it here to enjoy the benefits!</string>
+</resources>
