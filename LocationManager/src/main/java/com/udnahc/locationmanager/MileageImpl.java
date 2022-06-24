@@ -148,7 +148,7 @@ public class MileageImpl implements Mileage {
                 for (Location location : getPath()) {
                     latLngs.add(new LatLng(location.getLatitude(), location.getLongitude()));
                 }
-                latLngs = PolyUtil.simplify(latLngs, 1);
+                latLngs = PolyUtil.simplify(latLngs, 0.2);
                 String poly = PolyUtil.encode(latLngs);
                 List<Location> simplifiedLocations = new ArrayList<>();
                 for (LatLng latLng : latLngs) {

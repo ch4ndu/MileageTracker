@@ -28,7 +28,7 @@ public class OfflineExpenseItem extends ExpenseItem {
     }
 
     @Override
-    public ExpenseItem.ViewHolder createViewHolder(View view, FlexibleAdapter adapter) {
+    public OfflineExpenseItem.ViewHolder createViewHolder(View view, FlexibleAdapter adapter) {
         return new ViewHolder(view, adapter);
     }
 
@@ -50,8 +50,8 @@ public class OfflineExpenseItem extends ExpenseItem {
 
         ViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);
-//            rightView = view.findViewById(R.id.right_view);
-//            frontView = view.findViewById(R.id.front_view);
+            rightView = view.findViewById(R.id.right_view);
+            frontView = view.findViewById(R.id.front_view);
         }
 
         @Override
