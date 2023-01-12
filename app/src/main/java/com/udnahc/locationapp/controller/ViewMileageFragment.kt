@@ -22,11 +22,9 @@ import com.google.android.gms.maps.model.RoundCap
 import com.robinhood.ticker.TickerView
 import com.udnahc.locationapp.App
 import com.udnahc.locationapp.R
-import com.udnahc.locationapp.model.Expense
 import com.udnahc.locationapp.util.Plog
 import com.udnahc.locationapp.util.Utils
 import com.udnahc.locationmanager.Mileage
-import java.util.*
 import kotlin.math.roundToInt
 
 class ViewMileageFragment : BaseFragment(), View.OnClickListener, OnMapReadyCallback {
@@ -43,7 +41,6 @@ class ViewMileageFragment : BaseFragment(), View.OnClickListener, OnMapReadyCall
     private var mileage: Mileage? = null
     private var mMap: GoogleMap? = null
     private var mapFragment: SupportMapFragment? = null
-    private var expense: Expense? = null
     private var offlineMileage = false
 
     override fun getContainerId(): Int {
@@ -92,8 +89,6 @@ class ViewMileageFragment : BaseFragment(), View.OnClickListener, OnMapReadyCall
 
         if (isHardwareGpsEnabled()) {
             requestLocationPermission()
-        } else {
-            return view
         }
 
         mapFragment = childFragmentManager
@@ -102,10 +97,9 @@ class ViewMileageFragment : BaseFragment(), View.OnClickListener, OnMapReadyCall
 
         val activity = activity
         if (activity is UtilActivity) {
-            expense = App.get().modifyingExpense
-            mileage = expense?.mileage
+            mileage = App.get().modifyingExpense
         }
-        expense?.let {
+        mileage?.let {
             tripDetails?.text = "Trip Details"
         }
         toolbar?.title = "Trip"
@@ -119,9 +113,8 @@ class ViewMileageFragment : BaseFragment(), View.OnClickListener, OnMapReadyCall
             it.isMyLocationEnabled = false
             it.uiSettings.isMyLocationButtonEnabled = false
             mainHandler.postDelayed({
-                mileage?.let { mileage ->
+                mileage?.let {
                     updateFinalMileage()
-                    updateFinalPolyline(mileage)
                 }
             }, 500)
         }

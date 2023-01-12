@@ -43,11 +43,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.robinhood.ticker.TickerView;
 import com.udnahc.locationapp.App;
 import com.udnahc.locationapp.R;
-import com.udnahc.locationapp.adapter.ExpenseHeader;
-import com.udnahc.locationapp.adapter.ExpenseItem;
 import com.udnahc.locationapp.adapter.OfflineExpenseItem;
 import com.udnahc.locationapp.location.MileageService;
-import com.udnahc.locationapp.model.Expense;
 import com.udnahc.locationapp.util.Constants;
 import com.udnahc.locationapp.util.EventMessage;
 import com.udnahc.locationapp.util.Plog;
@@ -81,7 +78,7 @@ public class GpsFragment extends BaseFragment implements View.OnClickListener, O
     private TickerView distanceDecimal, distanceSingle, distanceTenth, distanceHundred, distanceThousand, distanceTenThousand, distanceHundredThousand;
     private List<TickerView> distanceArray;
     private ViewGroup tickerCard, saveLayout;
-    private List<Expense> offlineMileages;
+    private List<Mileage> offlineMileages;
     @Nullable
     private Mileage mileage = null;
     @Nullable
@@ -690,13 +687,13 @@ public class GpsFragment extends BaseFragment implements View.OnClickListener, O
     }
 
     protected void loadData() {
-        final List<Expense> mileageList = new ArrayList<>();
+        final List<Mileage> mileageList = new ArrayList<>();
         final RunnableAsync runnableAsync = new RunnableAsync(new Runnable() {
             @Override
             public void run() {
                 mileageList.addAll(App.get().getDbHelper().getMileages());
-                for (Expense expense : mileageList) {
-                    expense.seteDate(expense.getTimeStamp());
+                for (Mileage expense : mileageList) {
+//                    expense.seteDate(expense.getTimeStamp());
                     Plog.d(TAG, "mileageImpl: %s", expense);
                 }
             }
@@ -733,24 +730,23 @@ public class GpsFragment extends BaseFragment implements View.OnClickListener, O
         runnableAsync.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    protected List<ExpenseItem> processResponse(List<Expense> expenses) {
-        Collections.sort(expenses, new Comparator<Expense>() {
+    protected List<OfflineExpenseItem> processResponse(List<Mileage> expenses) {
+        Collections.sort(expenses, new Comparator<Mileage>() {
             @Override
-            public int compare(Expense left, Expense right) {
+            public int compare(Mileage left, Mileage right) {
                 return Long.compare(right.getTimeStamp(), left.getTimeStamp());
             }
         });
-        List<ExpenseItem> temp = new ArrayList<>();
-        final ExpenseHeader expenseHeader = new ExpenseHeader("offline");
-        for (Expense expense : expenses) {
-            temp.add(new OfflineExpenseItem(getBaseActivity(), expense, expenseHeader));
+        List<OfflineExpenseItem> temp = new ArrayList<>();
+        for (Mileage expense : expenses) {
+            temp.add(new OfflineExpenseItem(getBaseActivity(), expense));
         }
         return temp;
     }
 
     @Override
     public boolean onItemClick(View view, int position) {
-        App.get().setModifyingExpense(((ExpenseItem) flexibleAdapter.getItem(position)).getListExpense());
+        App.get().setModifyingExpense(((OfflineExpenseItem) flexibleAdapter.getItem(position)).getListExpense());
         Intent intent = new Intent(getActivity(), NewActivity.class);
         intent.putExtra(Constants.FragmentId, "ViewOfflineMileage");
         startActivity(intent);

@@ -1,9 +1,13 @@
 package com.udnahc.locationapp.location
 
+import android.Manifest.permission.ACTIVITY_RECOGNITION
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.ActivityRecognition
 import com.google.android.gms.location.ActivityTransition
 import com.google.android.gms.location.ActivityTransitionRequest
@@ -25,29 +29,37 @@ class TransitionRecognition {
     }
 
     fun stopTracking(context: UtilActivity) {
-        ActivityRecognition.getClient(context)
-            .removeActivityTransitionUpdates(getPendingIntent(context))
-            .addOnSuccessListener {
-                getPendingIntent(context).cancel()
-                Toast.makeText(context, "Cancelled auto-track successfully!", Toast.LENGTH_LONG)
-                    .show()
-            }
-            .addOnFailureListener { e ->
-                if (!context.isFinishing && !context.isDestroyed) {
-                    Toast.makeText(
-                        context,
-                        "There was an error canceling auto-track. Please try again later!",
-                        Toast.LENGTH_LONG
-                    ).show()
+        if (ContextCompat.checkSelfPermission(
+                context,
+                ACTIVITY_RECOGNITION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityRecognition.getClient(context)
+                .removeActivityTransitionUpdates(getPendingIntent(context))
+                .addOnSuccessListener {
+                    getPendingIntent(context).cancel()
+                    Toast.makeText(context, "Cancelled auto-track successfully!", Toast.LENGTH_LONG)
+                        .show()
                 }
-                Preferences.saveAutoTrackPreference(true)
-                Plog.e(TAG, e, "Transitions could not be unregistered")
-            }
+                .addOnFailureListener { e ->
+                    if (!context.isFinishing && !context.isDestroyed) {
+                        Toast.makeText(
+                            context,
+                            "There was an error canceling auto-track. Please try again later!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    Preferences.saveAutoTrackPreference(true)
+                    Plog.e(TAG, e, "Transitions could not be unregistered")
+                }
+        }
     }
 
     /***********************************************************************************************
      * LAUNCH TRANSITIONS TRACKER
      **********************************************************************************************/
+    @SuppressLint("MissingPermission")
     private fun launchTransitionsTracker(mContext: Context) {
         if (mContext is UtilActivity) {
             if (!mContext.hasActivityPermission())

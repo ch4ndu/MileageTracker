@@ -11,8 +11,10 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import com.udnahc.locationapp.model.Expense;
 import com.udnahc.locationapp.util.Plog;
+import com.udnahc.locationmanager.Mileage;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +71,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(createExpenseTable.toString());
     }
 
-    public void addMileage(Expense expense) {
+    public void addMileage(Mileage expense) {
         String query = "SELECT * FROM " + EXPENSES + " WHERE " + ExpenseColumn.timeStamp.name() + "=?";
         SQLiteDatabase db = getWritableDatabase();
         try (Cursor cursor = db.rawQuery(query, new String[]{"" + expense.getTimeStamp()})) {
@@ -103,27 +105,27 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<Expense> getMileages() {
-        List<Expense> expenseList = new ArrayList<>();
-        String query = "SELECT * FROM " + EXPENSES;
+    public List<Mileage> getMileages() {
+        List<Mileage> mileageList = new ArrayList<>();
+        String query = "SELECT * FROM " + EXPENSES + " ORDER BY " + ExpenseColumn.endTime.name() + " DESC";
         SQLiteDatabase db = getReadableDatabase();
         try (Cursor cursor = db.rawQuery(query, null)) {
             if (cursor.moveToFirst()) {
                 do {
-                    Expense expense = getExpenseFromCursor(cursor);
-                    if (expense != null) {
-                        expenseList.add(expense);
+                    Mileage mileage = getExpenseFromCursor(cursor);
+                    if (mileage != null) {
+                        mileageList.add(mileage);
                     }
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             Plog.e(TAG, e, "addMileage");
         }
-        return expenseList;
+        return mileageList;
     }
 
     @Nullable
-    private Expense getExpenseFromCursor(Cursor cursor) {
+    private Mileage getExpenseFromCursor(Cursor cursor) {
         try {
             long timeStamp = Long.parseLong(cursor.getString(ExpenseColumn.timeStamp.ordinal()));
             String endTimeString = cursor.getString(ExpenseColumn.endTime.ordinal());
@@ -136,12 +138,13 @@ public class DbHelper extends SQLiteOpenHelper {
             String extra2 = cursor.getString(ExpenseColumn.extra2.ordinal());
             String extra3 = cursor.getString(ExpenseColumn.extra3.ordinal());
             String uuId = cursor.getString(ExpenseColumn.id.ordinal());
-            Expense expense = new Expense(timeStamp);
-            expense.setEndTime(endTime);
+            Mileage mileage = new Mileage();
+            mileage.setTimeStamp(timeStamp);
+            mileage.setEndTime(endTime);
             if (!TextUtils.isEmpty(extra1))
-                expense.setMiles(Double.parseDouble(extra1));
-            expense.setPoly(extra2);
-            expense.setLatLongString(extra3);
+                mileage.setMiles(Double.parseDouble(extra1));
+            mileage.setPoly(extra2);
+            mileage.setLatLongString(extra3);
             List<Location> locations = new ArrayList<>();
             String[] split = extra3.split("\\|");
             for (String s : split) {
@@ -153,9 +156,9 @@ public class DbHelper extends SQLiteOpenHelper {
                     locations.add(location);
                 }
             }
-            expense.setPath(locations);
-            expense.postProcessMileage(true);
-            return expense;
+            mileage.setPath(locations);
+            mileage.postProcessMileage(false);
+            return mileage;
         } catch (Exception e) {
             Plog.e(TAG, e, "getExpenseFromCursor");
         }

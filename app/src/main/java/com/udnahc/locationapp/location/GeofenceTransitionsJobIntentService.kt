@@ -17,7 +17,7 @@ import java.util.*
 class GeofenceTransitionsJobIntentService : JobIntentService() {
 
     override fun onHandleWork(intent: Intent) {
-        val geofencingEvent = GeofencingEvent.fromIntent(intent)
+        val geofencingEvent = GeofencingEvent.fromIntent(intent) ?: return
         if (geofencingEvent.hasError()) {
             val errorMessage = GeofenceErrorMessages.getErrorString(geofencingEvent.errorCode)
             Plog.appendLog(applicationContext, "onHandleWork: $errorMessage")
@@ -31,9 +31,10 @@ class GeofenceTransitionsJobIntentService : JobIntentService() {
         val geofenceTransition = geofencingEvent.geofenceTransition
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
             geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-            val triggeringGeofences = geofencingEvent.triggeringGeofences
+            val triggeringGeofences = geofencingEvent.triggeringGeofences ?: return
             val geofenceTransitionDetails = getGeofenceTransitionDetails(
-                geofenceTransition, triggeringGeofences)
+                geofenceTransition, triggeringGeofences
+            )
 
             Plog.d(TAG, "geofenceDetails %s", geofenceTransitionDetails)
             Plog.appendLog(applicationContext, """${TAG}: geofenceDetails $geofenceTransitionDetails""")

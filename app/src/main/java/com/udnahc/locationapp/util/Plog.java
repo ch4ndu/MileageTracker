@@ -204,7 +204,7 @@ public class Plog {
                 e.printStackTrace();
             }
         } catch (Exception e) {
-            Plog.e("ErrorReporter", e, "appendLog");
+            Plog.e("ErrorReporter", e, "appendTransition");
         }
 
     }

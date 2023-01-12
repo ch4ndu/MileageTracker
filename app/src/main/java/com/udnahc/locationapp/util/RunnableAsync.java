@@ -3,11 +3,19 @@ package com.udnahc.locationapp.util;
 
 import android.os.AsyncTask;
 
-public class RunnableAsync extends AsyncTask<String, String, String> {
-    private Runnable backgroundRunnable, uiRunnable;
-    private Response.ErrorListener errorListener;
+import androidx.annotation.Nullable;
 
-    public RunnableAsync(Runnable backgroundRunnable, Runnable uiRunnable, Response.ErrorListener errorListener) {
+public class RunnableAsync extends AsyncTask<String, String, String> {
+    @Nullable
+    private final Runnable backgroundRunnable;
+    @Nullable
+    private final Runnable uiRunnable;
+    @Nullable
+    private final Response.ErrorListener errorListener;
+
+    public RunnableAsync(@Nullable Runnable backgroundRunnable,
+                         @Nullable Runnable uiRunnable,
+                         @Nullable Response.ErrorListener errorListener) {
         this.backgroundRunnable = backgroundRunnable;
         this.uiRunnable = uiRunnable;
         this.errorListener = errorListener;

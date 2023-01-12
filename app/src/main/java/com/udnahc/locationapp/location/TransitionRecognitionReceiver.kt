@@ -3,6 +3,7 @@ package com.udnahc.locationapp.location
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.GROUP_ALERT_ALL
@@ -16,6 +17,7 @@ import com.udnahc.locationapp.R
 import com.udnahc.locationapp.controller.UtilActivity
 import com.udnahc.locationapp.util.Plog
 import com.udnahc.locationapp.util.Preferences
+import com.udnahc.locationapp.util.RunnableAsync
 import com.udnahc.locationmanager.GpsMessage
 import org.greenrobot.eventbus.EventBus
 import java.text.SimpleDateFormat
@@ -50,17 +52,20 @@ class TransitionRecognitionReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun onDetectedTransitionEvent(context: Context, activity: ActivityTransitionEvent) {
-        when (activity.activityType) {
+    private fun onDetectedTransitionEvent(
+        context: Context,
+        transitionEvent: ActivityTransitionEvent
+    ) {
+        when (transitionEvent.activityType) {
             DetectedActivity.ON_BICYCLE,
             DetectedActivity.RUNNING,
             DetectedActivity.WALKING -> {
                 if (MileageService.isDebugWalking()) {
-                    saveTransition(context, activity)
+                    saveTransition(context, transitionEvent)
                     postNotification(showPreviousTransitions(App.get().applicationContext))
-                    if (activity.transitionType == ActivityTransition.ACTIVITY_TRANSITION_ENTER) {
+                    if (transitionEvent.transitionType == ActivityTransition.ACTIVITY_TRANSITION_ENTER) {
                         handleEnterState(context)
-                    } else if (activity.transitionType == ActivityTransition.ACTIVITY_TRANSITION_EXIT) {
+                    } else if (transitionEvent.transitionType == ActivityTransition.ACTIVITY_TRANSITION_EXIT) {
                         handleExitState()
                     }
                 } else {
@@ -68,11 +73,11 @@ class TransitionRecognitionReceiver : BroadcastReceiver() {
                 }
             }
             DetectedActivity.IN_VEHICLE -> {
-                saveTransition(context, activity)
+                saveTransition(context, transitionEvent)
                 postNotification(showPreviousTransitions(App.get().applicationContext))
-                if (activity.transitionType == ActivityTransition.ACTIVITY_TRANSITION_ENTER) {
+                if (transitionEvent.transitionType == ActivityTransition.ACTIVITY_TRANSITION_ENTER) {
                     handleEnterState(context)
-                } else if (activity.transitionType == ActivityTransition.ACTIVITY_TRANSITION_EXIT) {
+                } else if (transitionEvent.transitionType == ActivityTransition.ACTIVITY_TRANSITION_EXIT) {
                     handleExitState()
                 }
             }
@@ -130,55 +135,65 @@ class TransitionRecognitionReceiver : BroadcastReceiver() {
         fun saveTransition(mContext: Context, activity: ActivityTransitionEvent) {
             if (!MileageService.isDebugAutoTrack())
                 return
-            // Save in Preferences
-            val sharedPref = mContext.getSharedPreferences(
-                SHARED_PREFERENCES_FILE_KEY_TRANSITIONS, Context.MODE_PRIVATE
-            )
 
-            with(sharedPref.edit()) {
-                val oldStr = sharedPref.getString(SHARED_PREFERENCES_KEY_TRANSITIONS, "")
-                val transitions = createTransitionString(activity)
-                putString(SHARED_PREFERENCES_KEY_TRANSITIONS, "$transitions|$oldStr")
-                apply()
-            }
+            RunnableAsync({
+                Plog.appendTransition(mContext, createTransitionString(activity))
+            }, null, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+
+//            // Save in Preferences
+//            val sharedPref = mContext.getSharedPreferences(
+//                SHARED_PREFERENCES_FILE_KEY_TRANSITIONS, Context.MODE_PRIVATE
+//            )
+//
+//            with(sharedPref.edit()) {
+//                val oldStr = sharedPref.getString(SHARED_PREFERENCES_KEY_TRANSITIONS, "")
+//                val transitions = createTransitionString(activity)
+//                putString(SHARED_PREFERENCES_KEY_TRANSITIONS, "$transitions|$oldStr")
+//                apply()
+//            }
         }
 
         fun saveTransition(mContext: Context, geofenceEvent: String) {
             if (!MileageService.isDebugAutoTrack())
                 return
-            // Save in Preferences
-            val sharedPref = mContext.getSharedPreferences(
-                SHARED_PREFERENCES_FILE_KEY_TRANSITIONS, Context.MODE_PRIVATE
-            )
 
-            with(sharedPref.edit()) {
-                val oldStr = sharedPref.getString(SHARED_PREFERENCES_KEY_TRANSITIONS, "")
-                putString(SHARED_PREFERENCES_KEY_TRANSITIONS, geofenceEvent + "|" + oldStr)
-                apply()
-            }
+            RunnableAsync({
+                Plog.appendTransition(mContext, geofenceEvent)
+            }, null, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+
+//            // Save in Preferences
+//            val sharedPref = mContext.getSharedPreferences(
+//                SHARED_PREFERENCES_FILE_KEY_TRANSITIONS, Context.MODE_PRIVATE
+//            )
+//
+//            with(sharedPref.edit()) {
+//                val oldStr = sharedPref.getString(SHARED_PREFERENCES_KEY_TRANSITIONS, "")
+//                putString(SHARED_PREFERENCES_KEY_TRANSITIONS, geofenceEvent + "|" + oldStr)
+//                apply()
+//            }
         }
 
         fun postNotification(message: String?) {
-            if (!MileageService.isDebugAutoTrack() || !Preferences.isAutoTrackEnabled())
-                return
-//            clearTransition(App.get().applicationContext)
-            val mBuilder = NotificationCompat.Builder(
-                App.get().applicationContext,
-                MileageService.getNotificationChannelDebug()
-            )
-                .setSmallIcon(R.drawable.map_vector)
-                .setContentTitle("Activity Recognition")
-                .setContentText(message)
-                .setStyle(NotificationCompat.BigTextStyle().bigText(message))
-                //                .setStyle(new NotificationCompat.BigTextStyle()
-                //                        .bigText("Much longer text that cannot fit one line..."))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setGroupAlertBehavior(GROUP_ALERT_ALL)
-                .setGroup("com.udnahc.locationapp")
-            val notificationManager = NotificationManagerCompat.from(App.get().applicationContext)
-
-            // notificationId is a unique int for each notification that you must define
-            notificationManager.notify(1234, mBuilder.build())
+//            if (!MileageService.isDebugAutoTrack() || !Preferences.isAutoTrackEnabled())
+//                return
+////            clearTransition(App.get().applicationContext)
+//            val mBuilder = NotificationCompat.Builder(
+//                App.get().applicationContext,
+//                MileageService.getNotificationChannelDebug()
+//            )
+//                .setSmallIcon(R.drawable.map_vector)
+//                .setContentTitle("Activity Recognition")
+//                .setContentText(message)
+//                .setStyle(NotificationCompat.BigTextStyle().bigText(message))
+//                //                .setStyle(new NotificationCompat.BigTextStyle()
+//                //                        .bigText("Much longer text that cannot fit one line..."))
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setGroupAlertBehavior(GROUP_ALERT_ALL)
+//                .setGroup("com.udnahc.locationapp")
+//            val notificationManager = NotificationManagerCompat.from(App.get().applicationContext)
+//
+//            // notificationId is a unique int for each notification that you must define
+//            notificationManager.notify(1234, mBuilder.build())
         }
 
 

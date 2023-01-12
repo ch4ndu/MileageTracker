@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#3669B3</color>
     <color name="colorPrimaryDark">#3669B3</color>
+    <color name="selectedBackground">#803669B3</color>
     <color name="backgroundColor">#ffffff</color>
     <color name="card_background">#FFFFFF</color>
     <color name="colorAccent">#5e87c2</color>

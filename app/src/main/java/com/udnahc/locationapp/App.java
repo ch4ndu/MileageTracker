@@ -9,7 +9,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.udnahc.locationapp.database.DbHelper;
 import com.udnahc.locationapp.location.MileageService;
-import com.udnahc.locationapp.model.Expense;
+import com.udnahc.locationmanager.Mileage;
 
 import java.io.File;
 import java.util.Calendar;
@@ -28,13 +28,13 @@ public class App extends MultiDexApplication {
     private double payoutAmount = 0;
     private long sessionStartTime = -1;
 
-    private Expense modifyingExpense;
+    private Mileage modifyingExpense;
 
-    public Expense getModifyingExpense() {
+    public Mileage getModifyingExpense() {
         return modifyingExpense;
     }
 
-    public void setModifyingExpense(Expense modifyingExpense) {
+    public void setModifyingExpense(Mileage modifyingExpense) {
         this.modifyingExpense = modifyingExpense;
     }
 

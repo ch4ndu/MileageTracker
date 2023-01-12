@@ -21,7 +21,7 @@ class GeofenceReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (!Preferences.isAutoTrackEnabled())
             return
-        val geofencingEvent = GeofencingEvent.fromIntent(intent)
+        val geofencingEvent = GeofencingEvent.fromIntent(intent) ?: return
         Plog.appendLog(context, "$TAG got geofence event")
         if (geofencingEvent.hasError()) {
             val errorMessage = GeofenceErrorMessages.getErrorString(geofencingEvent.errorCode)
@@ -37,7 +37,7 @@ class GeofenceReceiver : BroadcastReceiver() {
         val geofenceTransition = geofencingEvent.geofenceTransition
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
             geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-            val triggeringGeofences = geofencingEvent.triggeringGeofences
+            val triggeringGeofences = geofencingEvent.triggeringGeofences ?: return
             val geofenceTransitionDetails = getGeofenceTransitionDetails(
                 geofenceTransition, triggeringGeofences, context)
 

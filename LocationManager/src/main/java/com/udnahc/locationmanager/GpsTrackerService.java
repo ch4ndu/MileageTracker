@@ -39,7 +39,7 @@ public class GpsTrackerService extends Service implements GpsOnListener {
     private Handler mServiceHandler;
     private HandlerThread serviceThread;
     private LocationManager locationManager;
-    private MileageImpl mileageImpl;
+    private Mileage mileageImpl;
     public static boolean initiatedFromBackground = false;
     private Location locationAtStopTrigger;
     private final long durationMinutes = 15;
@@ -115,7 +115,7 @@ public class GpsTrackerService extends Service implements GpsOnListener {
 
 
         if (mileageImpl == null) {
-            mileageImpl = new MileageImpl();
+            mileageImpl = new Mileage();
             mileageImpl.setTimeStamp(System.currentTimeMillis());
             mileageImpl.setPath(new ArrayList<Location>());
         }
@@ -263,7 +263,7 @@ public class GpsTrackerService extends Service implements GpsOnListener {
 
     public void addInitialLocation(@NonNull Location location) {
         if (mileageImpl == null) {
-            mileageImpl = new MileageImpl();
+            mileageImpl = new Mileage();
             mileageImpl.setTimeStamp(System.currentTimeMillis());
             mileageImpl.setPath(new ArrayList<Location>());
         }
@@ -278,7 +278,7 @@ public class GpsTrackerService extends Service implements GpsOnListener {
             public void run() {
                 if (location != null) {
                     if (mileageImpl == null) {
-                        mileageImpl = new MileageImpl();
+                        mileageImpl = new Mileage();
                         mileageImpl.setTimeStamp(System.currentTimeMillis());
                         mileageImpl.setPath(new ArrayList<Location>());
                     }

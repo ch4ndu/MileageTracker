@@ -35,7 +35,7 @@ class MainActivity : UtilActivity(), View.OnClickListener {
                 position == 0 -> {
                     var fragment: BaseFragment? = getRegisteredFragment(position)
                     if (fragment == null || !fragment.isAdded) {
-                        fragment = HomeFragment()
+                        fragment = OverViewFragment()
                         fragment.setRetainInstance(true)
                         registeredFragments.put(position, fragment)
                     }

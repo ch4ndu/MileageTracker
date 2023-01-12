@@ -21,11 +21,11 @@ import com.afollestad.materialdialogs.customview.customView
 import com.udnahc.locationapp.location.LocationUtils
 import com.udnahc.locationapp.BuildConfig
 import com.udnahc.locationapp.R
-import com.udnahc.locationapp.model.Expense
 import com.udnahc.locationapp.util.EventMessage
 import com.udnahc.locationapp.util.Plog
 import com.udnahc.locationapp.util.Preferences
 import com.udnahc.locationapp.util.Utils
+import com.udnahc.locationmanager.Mileage
 import org.greenrobot.eventbus.EventBus
 
 @SuppressLint("Registered")
@@ -35,7 +35,7 @@ abstract class UtilActivity : AppCompatActivity() {
     private var handler: Handler? = null
     private var anim: AnimationDrawable? = null
     open var activeFragment: BaseFragment? = null
-    var modifyingExpense: Expense? = null
+    var modifyingExpense: Mileage? = null
 
     val mainHandler: Handler
         get() {

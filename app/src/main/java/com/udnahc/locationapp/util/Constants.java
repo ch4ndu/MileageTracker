@@ -18,9 +18,10 @@ public class Constants {
     public static final String GPS_ACTIVITY_ACTION = "go_to_gps_activity";
 //    public static final int UPDATE_GPS_TRACKING_NOTIFICATION = 1234291;
 //    public static final int UPDATE_AUTO_TRACK_NOTIFICATION = 2143921;
-    @SuppressLint("ConstantLocale")
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d", Locale.getDefault());
-    public static final SimpleDateFormat offlineDateFormat = new SimpleDateFormat("yyyy MMM dd hh:mm aa", Locale.getDefault());
+@SuppressLint("ConstantLocale")
+public static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d", Locale.getDefault());
+    public static final SimpleDateFormat offlineDateFormat = new SimpleDateFormat("MMM dd hh:mm aa", Locale.getDefault());
+    public static final SimpleDateFormat offlineEndDateFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
     public static final int SMS_PERMISSION_CODE = 2312;
 
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";

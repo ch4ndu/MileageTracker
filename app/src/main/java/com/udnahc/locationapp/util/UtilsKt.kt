@@ -6,8 +6,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AlertDialog
 import com.afollestad.materialdialogs.MaterialDialog
-import com.udnahc.locationapp.location.MileageService
 import com.udnahc.locationapp.MainActivity
+import com.udnahc.locationapp.database.DbHelper
+import com.udnahc.locationapp.location.MileageService
+import com.udnahc.locationmanager.Mileage
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import java.io.File
@@ -17,6 +19,17 @@ import java.util.*
 class UtilsKt {
     companion object {
         const val TAG = "UtilsKt"
+
+        fun getMileagesForToday(dbHelper: DbHelper): List<Mileage> {
+            val startTime = DateTime.now().minusDays(1).withTime(0, 0, 0, 0)
+            val endTime = DateTime.now().minusDays(1).withTime(23, 60, 60, 59)
+            val mileageList = dbHelper.mileages
+            return mileageList.filter { mileage ->
+                mileage.endDateTime.isAfter(startTime) &&
+                        mileage.endDateTime.isBefore(endTime)
+            }
+//            return mileageList
+        }
 
         fun shouldRunNow(): Boolean {
             val dateTime = DateTime(Calendar.getInstance(), DateTimeZone.getDefault())

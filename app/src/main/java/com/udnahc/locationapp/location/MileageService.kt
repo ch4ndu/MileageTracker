@@ -3,7 +3,6 @@ package com.udnahc.locationapp.location
 import android.content.Intent
 import android.text.TextUtils
 import com.udnahc.locationapp.App
-import com.udnahc.locationapp.model.Expense
 import com.udnahc.locationapp.util.Preferences
 import com.udnahc.locationapp.util.UtilsKt
 import com.udnahc.locationmanager.GpsTrackerService
@@ -15,7 +14,7 @@ open class MileageService : GpsTrackerService() {
     override fun handleOfflineCallback(mileage: Mileage, listener: OfflineComplete?) {
         if (USE_AUTO_TRACKING) {
             if (mileage.miles > 0.2)
-                App.get().dbHelper.addMileage(Expense(mileage))
+                App.get().dbHelper.addMileage(mileage)
         }
         if (listener != null) {
             LocationUtils.setGeoFenceAtCurrentLocation(applicationContext, null) {
